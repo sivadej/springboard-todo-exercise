@@ -2,22 +2,21 @@
 //todo list
 //add listeners to events for adding items, marking items done, and removing.
 //load and save items into localstorage. use JSON stringify and parse.
-
 const todoList = document.querySelector('#todo-list');
-let todoListArray = [];
 
-//load list from localstorage
-todoListArray = JSON.parse(localStorage.getItem("todoList"));
-for (item of todoListArray) {
-    addItem(item);
-}
+//load list from localstorage if items exist
+let todoListArray = JSON.parse(localStorage.getItem("todoList"));
+if(todoListArray){
+    for (item of todoListArray)
+        addItem(item);
+    }
 
 function addItem(item){
     let itemLi = document.createElement('li');
     let deleteBtn = document.createElement('button');
     deleteBtn.innerText = 'Delete';
     deleteBtn.setAttribute('class','delete-btn');
-    itemLi.innerHTML = `<span>${item}</span>`; //wrapped item into span tag because saving li innertext would get button text
+    itemLi.innerHTML = `<span>${item}</span>`;
     itemLi.append(deleteBtn);
     todoList.appendChild(itemLi);
     //console.log(item + ' added');
@@ -28,8 +27,8 @@ function addItem(item){
 //add-item-btn button logic
 const addItemBtn = document.querySelector('#add-item-btn');
 addItemBtn.addEventListener('click', function(e){
-    const newItem = document.querySelector('#new-item').value;
     e.preventDefault();
+    const newItem = document.querySelector('#new-item').value;
     if (newItem)
         addItem(newItem);
 })
